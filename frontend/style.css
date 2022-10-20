@@ -1,18 +1,32 @@
-body{
+body {
     font-family: Arial;
-    width: 80%;
-    margin: auto;
+    background-color: #222;
 }
-#menu1{
+
+.nav_movies {
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}
+.nav {
     display: flex;
     justify-content: space-between;
 }
-#menu2{
-    display: flex;
-}
-.menu2{
+.nav p {
     margin: 10px;
+    color: #ccc
 }
-.phrasing1{
-   text-align: center;
+i {
+    color: #ccc
+}
+article h2 {
+    text-align: center;
+    color: #ccc
+}
+.icone_arrow {
+    margin-top: 6%;
+}
+img {
+    margin: 10px;
+    width: 150px;
 }
