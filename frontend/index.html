@@ -16,30 +16,23 @@
         <article>
             <h2>Meilleur film</h2>
             <div class="nav_movies">
-                <div class="movie_better"></div>
+                <div class="movie_better clickModal"></div>
             </div>
         </article>
         <article>
             <h2>Films les mieux notés</h2>
             <div class="nav_movies">
-                <i class="fas fa-solid fa-arrow-left icone_arrow"></i>
-                <div class="movies_betters">
-                    <div id="modal">
-                        <div class="modal-content">
-                            <span class="close">&times;</span>
-                            <h2 class="text"></h2>
-                        </div>
-                    </div>
+                <i class="fas fa-solid fa-arrow-left icone_arrow carrouselLeft"></i>
+                <div class="movies_betters clickModal">
                 </div>
-                <i class="fas fa-solid fa-arrow-right icone_arrow"></i>
+                <i class="fas fa-solid fa-arrow-right icone_arrow carrouselRight"></i>
             </div>
         </article>
-
         <article>
-            <h2>Biographie</h2>
+            <h2>Actions</h2>
             <div class="nav_movies">
                 <i class="fas fa-solid fa-arrow-left icone_arrow"></i>
-                <div class="movies_biography"></div>
+                <div class="movies_actions clickModal"></div>
                 <i class="fas fa-solid fa-arrow-right icone_arrow"></i>
             </div>
         </article>
@@ -48,7 +41,7 @@
             <h2>Dramatique</h2>
             <div class="nav_movies">
                 <i class="fas fa-solid fa-arrow-left icone_arrow"></i>
-                <div class="movies_dramas"></div>
+                <div class="movies_dramas clickModal"></div>
                 <i class="fas fa-solid fa-arrow-right icone_arrow"></i>
             </div>
         </article>
@@ -57,11 +50,16 @@
             <h2>Aventure</h2>
             <div class="nav_movies">
                 <i class="fas fa-solid fa-arrow-left icone_arrow"></i>
-                <div class="movies_adventures"></div>
+                <div class="movies_adventures clickModal"></div>
                 <i class="fas fa-solid fa-arrow-right icone_arrow"></i>
             </div>
         </article>
-
+        <div id="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2 class="text"></h2>
+            </div>
+        </div>
     </body>
     <script src="js.js"></script>
 </html>
