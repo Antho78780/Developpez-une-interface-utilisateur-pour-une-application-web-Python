@@ -6,7 +6,106 @@ const moviesActions = document.querySelector(".movies_actions")
 const clickModal = document.querySelectorAll(".clickModal")
 const allMovies = []
 
+const ArrayMoviesActions = []
+const ArrayMoviesDramas = []
+const ArrayMoviesAdventure = []
 
+for (let i = 2588; i < 2590;i++){
+	fetch(`http://localhost:8000/api/v1/titles/?actor=&actor_contains=&company=&company_contains=&country=&country_contains=&director=&director_contains=&genre
+	=Action&genre_contains=&imdb_score=&imdb_score_max=&imdb_score_min=&lang=&lang_contains=&max_year=&min_year=&page=${i}&rating=&rating_contains=&sort_by=&title
+	=&title_contains=&writer=&writer_contains=&year=`)
+	.then(res => res.json())
+	.then(data => {
+		for (let movie of data.results){
+			ArrayMoviesActions.push(movie)
+		}
+		if (ArrayMoviesActions.length == 10){
+			ArrayMoviesActions.sort((a, b) => b.imdb_score - a.imdb_score)
+			for (let i = 0; i < 4; i++){
+				moviesActions.innerHTML += `<img src="${ArrayMoviesActions[i].image_url}"></img>`
+			}
+			const carrouselRightAction = document.querySelector(".carrouselRightAction")
+			const carrouselLeftAction = document.querySelector(".carrouselLeftAction")
+			carrouselRightAction.addEventListener("click", function(){
+				moviesActions.innerHTML = ""
+				for (let i = 4; i < 7; i++){
+					moviesActions.innerHTML += `<img src="${ArrayMoviesActions[i].image_url}"></img>`
+				}
+
+			})
+			carrouselLeftAction.addEventListener("click", function(){
+				moviesActions.innerHTML = ""
+				for (let i = 0; i < 4; i++){
+					moviesActions.innerHTML += `<img src="${ArrayMoviesActions[i].image_url}"></img>`
+				}
+			})
+		}
+	})
+}
+for (let i = 9420; i < 9422; i++){
+	fetch(`http://localhost:8000/api/v1/titles/?actor=&actor_contains=&company=&company_contains=&country=&country_contains=&director=&director_contains=&genre
+	=Drama&genre_contains=&imdb_score=&imdb_score_max=&imdb_score_min=&lang=&lang_contains=&max_year=&min_year=&page=${i}&rating=&rating_contains=&sort_by=&title
+	=&title_contains=&writer=&writer_contains=&year=`)
+	.then(res => res.json())
+	.then(data => {
+		for (let movie of data.results){
+			ArrayMoviesDramas.push(movie)
+		}
+		if (ArrayMoviesDramas.length == 10){
+			ArrayMoviesDramas.sort((a, b) => b.imdb_score - a.imdb_score)
+			for (let i = 0; i < 4; i++){
+				moviesDramas.innerHTML += `<img src="${ArrayMoviesDramas[i].image_url}"></img>`
+			}
+			const carrouselRightDrama = document.querySelector(".carrouselRightDrama")
+			const carrouselLeftDrama = document.querySelector(".carrouselLeftDrama")
+			carrouselRightDrama.addEventListener("click", function(){
+				moviesDramas.innerHTML = ""
+				for (let i = 4; i < 7; i++){
+					moviesDramas.innerHTML += `<img src="${ArrayMoviesDramas[i].image_url}"></img>`
+				}
+			})
+			carrouselLeftDrama.addEventListener("click", function(){
+				moviesDramas.innerHTML = ""
+				for (let i = 0; i < 4; i++){
+					moviesDramas.innerHTML += `<img src="${ArrayMoviesDramas[i].image_url}"></img>`
+				}
+			})
+		}
+	})
+}
+for (let i = 1516; i < 1518; i++){
+	fetch(`http://localhost:8000/api/v1/titles/?actor=&actor_contains=&company=&company_contains=&country=&country_contains=&director=&director_contains=&genre
+	=Adventure&genre_contains=&imdb_score=&imdb_score_max=&imdb_score_min=&lang=&lang_contains=&max_year=&min_year=&page=${i}&rating=&rating_contains=&sort_by=&title
+	=&title_contains=&writer=&writer_contains=&year=`)
+	.then(res => res.json())
+	.then(data => {
+		for (let movie of data.results){
+			ArrayMoviesAdventure.push(movie)
+		}
+		if (ArrayMoviesAdventure.length == 10){
+			ArrayMoviesAdventure.sort((a, b) => b.imdb_score - a.imdb_score)
+			for (let i = 0; i < 4; i++){
+				moviesAdventures.innerHTML += `<img src="${ArrayMoviesAdventure[i].image_url}"></img>`
+			}
+			const carrouselRightAventure = document.querySelector(".carrouselRightAdventure")
+			const carrouselLeftAventure = document.querySelector(".carrouselLeftAdventure")
+			carrouselRightAventure.addEventListener("click", function(){
+				moviesAdventures.innerHTML = ""
+				for (let i = 4; i < 7; i++){
+					moviesAdventures.innerHTML += `<img src="${ArrayMoviesAdventure[i].image_url}"></img>`
+				}
+			})
+			carrouselLeftAventure.addEventListener("click", function(){
+				moviesAdventures.innerHTML = ""
+				for (let i = 0; i < 4; i++){
+					moviesAdventures.innerHTML += `<img src="${ArrayMoviesAdventure[i].image_url}"></img>`
+				}
+			})
+		}
+	})
+}
+
+/*
 for (let i=17168;i < 17172;i++){
 	fetch(`http://localhost:8000/api/v1/titles/?page=${i}`)
 	.then(res => res.json())
@@ -19,21 +118,60 @@ for (let i=17168;i < 17172;i++){
 		allMovies.sort((a, b) => b.imdb_score - a.imdb_score)
 
 		if (allMovies.length == 16){
-			console.log(allMovies)
 			importMovie(movieBetter, allMovies[0].image_url)
 			for (let a = 0; a < 4;a++){
 				importMovie(moviesBetters, allMovies[a].image_url)
 			}
+			const arrayDrama = []
+			const arrayAction = []
+			const arrayAdventure = []
+
 			for (let movie of allMovies){
-				checkedGenre(movie.genres.includes("Drama"), moviesDramas, movie.image_url)
-				checkedGenre(movie.genres.includes("Adventure"), moviesAdventures, movie.image_url)
-				checkedGenre(movie.genres.includes("Action"), moviesActions, movie.image_url)
+				if (movie.genres.includes("Drama")){
+					arrayDrama.push(movie)
+				}
+				if (movie.genres.includes("Action")){
+					arrayAction.push(movie)
+				}
+				if (movie.genres.includes("Adventure")){
+					arrayAdventure.push(movie)
+				}
 			}
+			if (arrayAction.length < 7){
+				for (let i = 1; i < 3; i++){
+					fetch(`http://localhost:8000/api/v1/titles/?actor=&actor_contains=&company=&company_contains=&country=&country_contains=&director=&director_contains=&genre=Action&genre_contains=&imdb_score=&imdb_score_max=&imdb_score_min=&lang=&lang_contains=&max_year=&min_year=&page=${i}&rating=&rating_contains=&sort_by=&title=&title_contains=&writer=&writer_contains=&year=`)
+					.then(res => res.json())
+					.then(data => {
+						for (let array of data.results){
+							arrayAction.push(array)
+						}
+					})
+				}
+			}
+			for (let i = 0; i < 4; i++){
+				if (arrayDrama[i]){
+					moviesDramas.innerHTML += `<img src='${arrayDrama[i].image_url}'></img>`
+				}
+				if (arrayAction[i]){
+					moviesActions.innerHTML += `<img src='${arrayAction[i].image_url}'></img>`
+				}
+				if (arrayAdventure[i]){
+					moviesAdventures.innerHTML += `<img src='${arrayAdventure[i].image_url}'></img>`
+				}
+			}
+
 			const carrouselRight = document.querySelector(".carrouselRight")
 			const carrouselLeft = document.querySelector(".carrouselLeft")
-			carrouselRight.addEventListener("click", function(e){
-				for (let i = 4; i < 7; i++){
-					moviesBetters.innerHTML += `<img src='${allMovies[i].image_url}'></img>`
+			carrouselRight.addEventListener("click", function(){
+				moviesBetters.innerHTML = ""
+				for (let i=4; i < 7;i++){
+					moviesBetters.innerHTML += `<img src="${allMovies[i].image_url}"></img>`
+				}
+			})
+			carrouselLeft.addEventListener("click", function(){
+				moviesBetters.innerHTML = ""
+				for (let i=0; i < 4;i++){
+					moviesBetters.innerHTML += `<img src="${allMovies[i].image_url}"></img>`
 				}
 			})
 		}
@@ -69,6 +207,7 @@ for (let clickM of clickModal){
 		})
 	})
 }
+*/
 /*
 
 const scoreUrl = `http://localhost:8000/api/v1/titles/?sort_by=-imdb_score`
@@ -84,7 +223,7 @@ function allMovies(url, page=1, genre, movies=[]) {
 	const fetchAllMovies = fetch(url)
 }
 */
-function checkedGenre(genre, classMovie, imageMovie, test){
+function checkedGenre(genre, classMovie, imageMovie){
 	if(genre){
 			classMovie.innerHTML += `<img src='${imageMovie}'></img>`
 		}
