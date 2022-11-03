@@ -10,7 +10,6 @@ body {
     display: flex;
     justify-content: center;
     width: 60%;
-    text-align: center;
 }
 .description {
     width: 400px;
@@ -18,6 +17,15 @@ body {
 .nav {
     display: flex;
     justify-content: space-between;
+    background-color: #708090;
+    padding: 5px;
+}
+a {
+  text-decoration: none;
+}
+.nav2{
+  display: flex;
+  margin-top: 10px;
 }
 .nav p {
     margin: 10px;
@@ -30,6 +38,12 @@ article h2 {
 }
 .icone_arrow {
     margin-top:15%;
+}
+.fa-arrow-left{
+  margin-right: 25px;
+}
+.fa-arrow-right{
+  margin-left: 25px;
 }
 img {
     margin: 10px;
@@ -49,14 +63,21 @@ img {
     background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 }
 .modal-content {
-    background-color: #222;
+    background-color: #1e90f1;
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 30%; /* Could be more or less, depending on screen size */
+    width:50%; /* Could be more or less, depending on screen size */
+    height: auto;
   }
+.imgModal {
+  width: 150px;
+  text-align: center;
+  margin:auto;
+  display: block
+}
   .close {
-    color: #aaa;
+    color: black;
     float: right;
     font-size: 28px;
     font-weight: bold;
@@ -74,12 +95,12 @@ img {
   .play-btn {
     width: 80px;
     height: 80px;
-    background: radial-gradient( rgba(255, 0, 128, 0.8) 60%, rgba(255, 255, 255, 1) 62%);
+    background: radial-gradient( rgba(254,163,71,0.8) 60%, rgba(255, 255, 255, 1) 62%);
     border-radius: 50%;
     position: relative;
     display: block;
     margin: auto;
-    box-shadow: 0px 0px 25px 3px rgba(255, 0, 128, 0.8);
+    box-shadow: 0px 0px 25px 3px rgba(254,163,71,0.8);
   }
   
   /* triangle */
@@ -100,5 +121,6 @@ img {
     -webkit-transition: all 400ms cubic-bezier(0.55, 0.055, 0.675, 0.19);
     transition: all 400ms cubic-bezier(0.55, 0.055, 0.675, 0.19);
   }
-  
+
+
   
