@@ -1,18 +1,10 @@
-
 const moviesAdventures = document.querySelector(".movies_adventures")
 const moviesDramas = document.querySelector(".movies_dramas")
 const moviesActions = document.querySelector(".movies_actions")
 const moviesBetters = document.querySelector(".movies_betters")
 
-const carousselRightBest = document.querySelector(".carrouselRightBest")
-const carousselLeftBest = document.querySelector(".carrouselLeftBest")
-const carrouselLeftAction = document.querySelector(".carrouselLeftAction")
-const carrouselRightAction = document.querySelector(".carrouselRightAction")
-const carrouselLeftDrama = document.querySelector(".carrouselLeftDrama")
-const carrouselRightDrama = document.querySelector(".carrouselRightDrama")
-const carrouselLeftAdventure = document.querySelector(".carrouselLeftAdventure")
-const carrouselRightAdventure = document.querySelector(".carrouselRightAdventure")
-
+const previous = document.querySelector(".previous")
+const next = document.querySelector(".next")
 const arrayGenre = ["Action", "Drama", "Adventure"]
 const allMovies = []
 for (let numPage =1; numPage < 3;numPage++){
@@ -29,9 +21,88 @@ for (let numPage =1; numPage < 3;numPage++){
 			}
 			allMovies.sort((a, b) => b.imdb_score - a.imdb_score)
 			if (allMovies.length == 30){
-				for (let i = 0; i < 4; i++){
-					moviesBetters.innerHTML += `<img src="${allMovies[i].image_url}"></img>`
+				allMovies.splice(4, 1)
+				const arrayMoviesBetters = []
+				for (let movie of allMovies){
+					if (arrayMoviesBetters.length < 7){
+						arrayMoviesBetters.push(movie)
+					}
 				}
+				for (let movie of arrayMoviesBetters){
+					moviesBetters.innerHTML += `<img src="${movie.image_url}" class="img_sliderBest active">`
+				}
+				const img_sliderBest = document.getElementsByClassName("img_sliderBest")
+				const numberImg_sliderBest = img_sliderBest.length
+				console.log(img_sliderBest)
+				for (let i = 4; i < numberImg_sliderBest;i++){
+					img_sliderBest[i].classList.remove("active")
+				}
+				let posFirst = 0;
+				let posLast = 4;
+				next.addEventListener("click", function(){
+					if (posLast == numberImg_sliderBest - 1){
+						for (let i = 3; i < numberImg_sliderBest; i++){
+							img_sliderBest[i].classList.remove("active")
+						}
+						for (let i = 0; i < 4; i++){
+							img_sliderBest[i].classList.add("active")
+						}
+						posFirst = 0
+						posLast = 4
+					}
+					if (img_sliderBest[posFirst].classList.contains("active")){
+						img_sliderBest[posFirst].classList.remove("active")
+					}
+					else {
+						posFirst++
+						img_sliderBest[posFirst].classList.remove("active")
+					}
+					if (img_sliderBest[posLast].classList.contains("active")){
+						posLast++
+					}
+					img_sliderBest[posLast].classList.add("active")
+					console.log(img_sliderBest)
+					
+				})
+				previous.addEventListener("click", function(){
+					console.log(posFirst)
+					console.log(posLast)
+					img_sliderBest[posFirst].classList.add("active")
+					img_sliderBest[posLast].classList.remove("active")
+					if (img_sliderBest[posFirst].classList.contains("active")){
+						posFirst--
+						img_sliderBest[posFirst].classList.remove("active")
+					}
+					console.log(img_sliderBest)
+				})
+				/*
+				let etape = -1
+				let etape2= 3
+				
+				previous.addEventListener("click", function(){
+					etape++
+					etape2++
+					console.log(img_sliderBest)
+					console.log(etape, etape2)
+					img_sliderBest[etape].classList.remove("active")
+					img_sliderBest[etape2].classList.add("active")
+					if(etape2 == numberImg_sliderBest - 1){
+						console.log("fin des films")
+						for (let i = 4; i < numberImg_sliderBest; i++){
+							img_sliderBest[i].classList.remove("active")
+						}
+						for (let i = 0; i < 4;i ++){
+							img_sliderBest[i].classList.add("active")
+						}
+						etape = -1
+						etape2= 3
+					}
+				})
+				next.addEventListener("click",  function(){
+					img_sliderBest[3].classList.remove("active")
+
+				})
+				*/
 				fetch(allMovies[0].url)
 				.then(res => res.json())
 				.then((infoMovie) => {
@@ -39,16 +110,7 @@ for (let numPage =1; numPage < 3;numPage++){
 					movieBetter.innerHTML = `<p>${infoMovie.title}</p><img src="${allMovies[0].image_url}"><a class="play-btn" href="#"></a></img>
 					<p class="description">${infoMovie.description}</p>`
 				})
-				carousselRightBest.addEventListener("click", function(){
-					console.log(allMovies[4])
-				})
-				carousselLeftBest.addEventListener("click", function(){
-					moviesBetters.innerHTML = ""
-					for (let i = 0; i < 4; i++){
-						moviesBetters.innerHTML += `<img src="${allMovies[i].image_url}"></img>`
-					}
-				})
-				allMovies.splice(4, 1)
+
 				let cache = {}
 				const filterAllMovies = allMovies.filter((el) => cache[el.id]?0:cache[el.id]=1)
 				const ArrayMoviesActions = []
@@ -65,49 +127,23 @@ for (let numPage =1; numPage < 3;numPage++){
 						ArrayMoviesAdventure.push(movie)
 					}
 				}
-
-				for (let i = 0; i < 4; i++){
-					moviesActions.innerHTML += `<img src="${ArrayMoviesActions[i].image_url}"></img>`
-					moviesDramas.innerHTML += `<img src="${ArrayMoviesDramas[i].image_url}"></img>`
-					moviesAdventures.innerHTML += `<img src="${ArrayMoviesAdventure[i].image_url}"></img>`
+				for (let movie of ArrayMoviesActions){
+					moviesActions.innerHTML += `<img src="${movie.image_url}" class="img_sliderAction active">`
 				}
-				carrouselRightAction.addEventListener("click", function(){
-					moviesActions.innerHTML = ""
-					for (let i = 4; i < 7; i++){
-						moviesActions.innerHTML += `<img src="${ArrayMoviesActions[i].image_url}"></img>`
-					}
-				})
-				carrouselLeftAction.addEventListener("click", function(){
-					moviesActions.innerHTML = ""
-					for (let i = 0; i < 4; i++){
-						moviesActions.innerHTML += `<img src="${ArrayMoviesActions[i].image_url}"></img>`
-					}
-				})
-				carrouselRightDrama.addEventListener("click", function(){
-					moviesDramas.innerHTML = ""
-					for (let i = 4; i < 7; i++){
-						moviesDramas.innerHTML += `<img src="${ArrayMoviesDramas[i].image_url}"></img>`
-					}
-				})
-				carrouselLeftDrama.addEventListener("click", function(){
-					moviesDramas.innerHTML = ""
-					for (let i = 0; i < 4; i++){
-						moviesDramas.innerHTML += `<img src="${ArrayMoviesDramas[i].image_url}"></img>`
-					}
-				})
-				carrouselRightAdventure.addEventListener("click", function(){
-					moviesAdventures.innerHTML = ""
-					for (let i = 4; i < 7; i++){
-						moviesAdventures.innerHTML += `<img src="${ArrayMoviesAdventure[i].image_url}"></img>`
-					}
-				})
-				carrouselLeftAdventure.addEventListener("click", function(){
-					moviesAdventures.innerHTML = ""
-					for (let i = 0; i < 4; i++){
-						moviesAdventures.innerHTML += `<img src="${ArrayMoviesAdventure[i].image_url}"></img>`
-					}
-				})
-				
+				for (let movie of ArrayMoviesDramas){
+					moviesDramas.innerHTML += `<img src="${movie.image_url}" class="img_sliderDrama active">`
+				}
+				for (let movie of ArrayMoviesAdventure){
+					moviesAdventures.innerHTML += `<img src="${movie.image_url}" class="img_sliderAdventure active">`
+				}
+				const img_sliderActions = document.getElementsByClassName("img_sliderAction")
+				const img_sliderDrama = document.getElementsByClassName("img_sliderDrama")
+				const img_sliderAdventure = document.getElementsByClassName("img_sliderAdventure")
+				for(let i = 4; i < numberImg_sliderBest; i++){
+					img_sliderActions[i].classList.remove("active")
+					img_sliderDrama[i].classList.remove("active")
+					img_sliderAdventure[i].classList.remove("active")
+				}
 				const clickModal = document.querySelectorAll(".clickModal")
 				const textMovie = document.querySelector(".text")
 				const modal = document.querySelector("#modal")
