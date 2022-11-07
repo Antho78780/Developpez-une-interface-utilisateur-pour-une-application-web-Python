@@ -4,6 +4,7 @@
         <meta charset="UTF-8">
         <link rel="stylesheet" type="text/css" href="style.css">
         <script src="https://kit.fontawesome.com/1a7b1ecd7e.js" crossorigin="anonymous"></script>
+        <script src="js.js" async></script>
     </head>
     <body>
         <section class="nav">
@@ -22,36 +23,36 @@
         <article>
             <h2>Films les mieux notés</h2>
             <div class="nav_movies">
-                <i class="fas fa-solid fa-arrow-left icone_arrow carrouselLeftBest"></i>
+                <button class="previous"><i class="fas fa-solid fa-arrow-left icone_arrow"></i></button>
                 <div class="movies_betters clickModal">
                 </div>
-                <i class="fas fa-solid fa-arrow-right icone_arrow carrouselRightBest"></i>
+                <button class="next"><i class="fas fa-solid fa-arrow-right icone_arrow"></i></button>
             </div>
         </article>
         <article>
             <h2>Actions</h2>
             <div class="nav_movies">
-                <i class="fas fa-solid fa-arrow-left icone_arrow carrouselLeftAction"></i>
+                <button><i class="fas fa-solid fa-arrow-left icone_arrow"></i></button>
                 <div class="movies_actions clickModal"></div>
-                <i class="fas fa-solid fa-arrow-right icone_arrow carrouselRightAction"></i>
+                <button><i class="fas fa-solid fa-arrow-right icone_arrow"></i></button>
             </div>
         </article>
 
         <article>
             <h2>Dramatiques</h2>
             <div class="nav_movies">
-                <i class="fas fa-solid fa-arrow-left icone_arrow carrouselLeftDrama"></i>
+                <button><i class="fas fa-solid fa-arrow-left icone_arrow"></i></button>
                 <div class="movies_dramas clickModal"></div>
-                <i class="fas fa-solid fa-arrow-right icone_arrow carrouselRightDrama"></i>
+                <button><i class="fas fa-solid fa-arrow-right icone_arrow"></i></button>
             </div>
         </article>
 
         <article>
             <h2>Aventures</h2>
             <div class="nav_movies">
-                <i class="fas fa-solid fa-arrow-left icone_arrow carrouselLeftAdventure"></i>
+                <button><i class="fas fa-solid fa-arrow-left icone_arrow"></i></button>
                 <div class="movies_adventures clickModal"></div>
-                <i class="fas fa-solid fa-arrow-right icone_arrow carrouselRightAdventure"></i>
+                <button><i class="fas fa-solid fa-arrow-right icone_arrow"></i></button>
             </div>
         </article>
         <div id="modal">
@@ -61,5 +62,4 @@
             </div>
         </div>
     </body>
-    <script src="js.js"></script>
 </html>
