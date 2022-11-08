@@ -3,8 +3,8 @@ const moviesDramas = document.querySelector(".movies_dramas")
 const moviesActions = document.querySelector(".movies_actions")
 const moviesBetters = document.querySelector(".movies_betters")
 
-const previous = document.querySelector(".previous")
-const next = document.querySelector(".next")
+const previous = document.querySelectorAll(".previous")
+const next = document.querySelectorAll(".next")
 const arrayGenre = ["Action", "Drama", "Adventure"]
 const allMovies = []
 for (let numPage =1; numPage < 3;numPage++){
@@ -28,81 +28,6 @@ for (let numPage =1; numPage < 3;numPage++){
 						arrayMoviesBetters.push(movie)
 					}
 				}
-				for (let movie of arrayMoviesBetters){
-					moviesBetters.innerHTML += `<img src="${movie.image_url}" class="img_sliderBest active">`
-				}
-				const img_sliderBest = document.getElementsByClassName("img_sliderBest")
-				const numberImg_sliderBest = img_sliderBest.length
-				console.log(img_sliderBest)
-				for (let i = 4; i < numberImg_sliderBest;i++){
-					img_sliderBest[i].classList.remove("active")
-				}
-				let posFirst = 0;
-				let posLast = 4;
-				next.addEventListener("click", function(){
-					if (posLast == numberImg_sliderBest - 1){
-						for (let i = 3; i < numberImg_sliderBest; i++){
-							img_sliderBest[i].classList.remove("active")
-						}
-						for (let i = 0; i < 4; i++){
-							img_sliderBest[i].classList.add("active")
-						}
-						posFirst = 0
-						posLast = 4
-					}
-					if (img_sliderBest[posFirst].classList.contains("active")){
-						img_sliderBest[posFirst].classList.remove("active")
-					}
-					else {
-						posFirst++
-						img_sliderBest[posFirst].classList.remove("active")
-					}
-					if (img_sliderBest[posLast].classList.contains("active")){
-						posLast++
-					}
-					img_sliderBest[posLast].classList.add("active")
-					console.log(img_sliderBest)
-					
-				})
-				previous.addEventListener("click", function(){
-					console.log(posFirst)
-					console.log(posLast)
-					img_sliderBest[posFirst].classList.add("active")
-					img_sliderBest[posLast].classList.remove("active")
-					if (img_sliderBest[posFirst].classList.contains("active")){
-						posFirst--
-						img_sliderBest[posFirst].classList.remove("active")
-					}
-					console.log(img_sliderBest)
-				})
-				/*
-				let etape = -1
-				let etape2= 3
-				
-				previous.addEventListener("click", function(){
-					etape++
-					etape2++
-					console.log(img_sliderBest)
-					console.log(etape, etape2)
-					img_sliderBest[etape].classList.remove("active")
-					img_sliderBest[etape2].classList.add("active")
-					if(etape2 == numberImg_sliderBest - 1){
-						console.log("fin des films")
-						for (let i = 4; i < numberImg_sliderBest; i++){
-							img_sliderBest[i].classList.remove("active")
-						}
-						for (let i = 0; i < 4;i ++){
-							img_sliderBest[i].classList.add("active")
-						}
-						etape = -1
-						etape2= 3
-					}
-				})
-				next.addEventListener("click",  function(){
-					img_sliderBest[3].classList.remove("active")
-
-				})
-				*/
 				fetch(allMovies[0].url)
 				.then(res => res.json())
 				.then((infoMovie) => {
@@ -110,7 +35,9 @@ for (let numPage =1; numPage < 3;numPage++){
 					movieBetter.innerHTML = `<p>${infoMovie.title}</p><img src="${allMovies[0].image_url}"><a class="play-btn" href="#"></a></img>
 					<p class="description">${infoMovie.description}</p>`
 				})
-
+				for (let movie of arrayMoviesBetters){
+					moviesBetters.innerHTML += `<img src="${movie.image_url}" class="img_sliderBest active">`
+				}
 				let cache = {}
 				const filterAllMovies = allMovies.filter((el) => cache[el.id]?0:cache[el.id]=1)
 				const ArrayMoviesActions = []
@@ -136,14 +63,21 @@ for (let numPage =1; numPage < 3;numPage++){
 				for (let movie of ArrayMoviesAdventure){
 					moviesAdventures.innerHTML += `<img src="${movie.image_url}" class="img_sliderAdventure active">`
 				}
+				const img_sliderBest = document.getElementsByClassName("img_sliderBest")
 				const img_sliderActions = document.getElementsByClassName("img_sliderAction")
 				const img_sliderDrama = document.getElementsByClassName("img_sliderDrama")
 				const img_sliderAdventure = document.getElementsByClassName("img_sliderAdventure")
-				for(let i = 4; i < numberImg_sliderBest; i++){
+				const numberMovie = img_sliderBest.length
+				for(let i = 4; i < numberMovie; i++){
+					img_sliderBest[i].classList.remove("active")
 					img_sliderActions[i].classList.remove("active")
 					img_sliderDrama[i].classList.remove("active")
 					img_sliderAdventure[i].classList.remove("active")
 				}
+				carrouselMovie(next[0],previous[0], img_sliderBest, numberMovie)
+				carrouselMovie(next[1],previous[1], img_sliderActions, numberMovie)
+				carrouselMovie(next[2],previous[2], img_sliderDrama, numberMovie)
+				carrouselMovie(next[3],previous[3], img_sliderAdventure, numberMovie)
 				const clickModal = document.querySelectorAll(".clickModal")
 				const textMovie = document.querySelector(".text")
 				const modal = document.querySelector("#modal")
@@ -181,4 +115,43 @@ function checkedGenre(genre, classMovie, imageMovie){
 }
 function importMovie(classMovie, movieIndexImage){
 	classMovie.innerHTML += `<img src='${movieIndexImage}'></img>`
+}
+let posFirst = 0;
+let posLast = 4;
+function carrouselMovie(indexButtonNext, indexButtonPrevious, classMovie, numberMovie){
+	indexButtonNext.addEventListener("click", function(){
+		if (posLast == numberMovie - 1){
+			for (let i = 3; i < numberMovie; i++){
+				classMovie[i].classList.remove("active")
+			}
+			for (let i = 0; i < 4; i++){
+				classMovie[i].classList.add("active")
+	
+			}
+			return posFirst = 0, posLast = 4
+		}
+		if (classMovie[posFirst].classList.contains("active")){
+			classMovie[posFirst].classList.remove("active")
+		}
+		else {
+			posFirst++
+			classMovie[posFirst].classList.remove("active")
+		}
+		if (classMovie[posLast].classList.contains("active")){
+			posLast++
+		}
+		classMovie[posLast].classList.add("active")
+	})
+	indexButtonPrevious.addEventListener("click", function(){
+		if (classMovie[posFirst].classList.contains("active")){
+			posFirst--
+			posLast--
+			classMovie[posFirst].classList.add("active")
+			classMovie[posLast].classList.remove("active")
+		}
+		else {
+			classMovie[posFirst].classList.add("active")
+			classMovie[posLast].classList.remove("active")
+		}
+	})
 }
