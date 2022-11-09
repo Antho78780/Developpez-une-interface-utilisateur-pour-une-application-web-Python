@@ -32,8 +32,10 @@ for (let numPage =1; numPage < 3;numPage++){
 				.then(res => res.json())
 				.then((infoMovie) => {
 					const movieBetter = document.querySelector(".movie_better")
-					movieBetter.innerHTML = `<p>${infoMovie.title}</p><img src="${allMovies[0].image_url}"><a class="play-btn" href="#"></a></img>
-					<p class="description">${infoMovie.description}</p>`
+					movieBetter.innerHTML = `<img src="${allMovies[0].image_url}"class='img_movie'></img><div class="block_description">
+					<h2 class="description">${infoMovie.title}</h2><p class="description">${infoMovie.description}</p><button type="button" class="btn btn-primary">
+					<i class="fas fa-sharp fa-solid fa-play"></i>
+					Play</button></div>`
 				})
 				for (let movie of arrayMoviesBetters){
 					moviesBetters.innerHTML += `<img src="${movie.image_url}" class="img_sliderBest active">`
@@ -118,8 +120,10 @@ function importMovie(classMovie, movieIndexImage){
 }
 let posFirst = 0;
 let posLast = 4;
+
 function carrouselMovie(indexButtonNext, indexButtonPrevious, classMovie, numberMovie){
 	indexButtonNext.addEventListener("click", function(){
+		console.log(classMovie)
 		if (posLast == numberMovie - 1){
 			for (let i = 3; i < numberMovie; i++){
 				classMovie[i].classList.remove("active")
@@ -143,15 +147,16 @@ function carrouselMovie(indexButtonNext, indexButtonPrevious, classMovie, number
 		classMovie[posLast].classList.add("active")
 	})
 	indexButtonPrevious.addEventListener("click", function(){
-		if (classMovie[posFirst].classList.contains("active")){
+		console.log(classMovie)
+		if (classMovie[posFirst].classList.contains("active") && posFirst != 0){
 			posFirst--
 			posLast--
 			classMovie[posFirst].classList.add("active")
 			classMovie[posLast].classList.remove("active")
 		}
 		else {
-			classMovie[posFirst].classList.add("active")
 			classMovie[posLast].classList.remove("active")
+			classMovie[posFirst].classList.add("active")
 		}
 	})
 }
