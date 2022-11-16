@@ -33,9 +33,8 @@ for (let numPage =1; numPage < 3;numPage++){
 				.then((infoMovie) => {
 					const movieBetter = document.querySelector(".movie_better")
 					movieBetter.innerHTML = `<img src="${allMovies[0].image_url}"class='img_movie'></img><div class="block_description">
-					<h2 class="description">${infoMovie.title}</h2><p class="description">${infoMovie.description}</p><button type="button" class="btn btn-primary">
-					<i class="fas fa-sharp fa-solid fa-play"></i>
-					Play</button></div>`
+					<h2 class="description">${infoMovie.title}</h2><p class="description">${infoMovie.description}</p><a href="${allMovies[0].imdb_url}">
+					<button type="button" class="btn btn-primary"><i class="fas fa-sharp fa-solid fa-play"></i>Play</button></a></div>`
 				})
 				for (let movie of arrayMoviesBetters){
 					moviesBetters.innerHTML += `<img src="${movie.image_url}" class="img_sliderBest active">`
@@ -120,6 +119,7 @@ function importMovie(classMovie, movieIndexImage){
 }
 let posFirst = 0;
 let posLast = 4;
+let test = 6
 
 function carrouselMovie(indexButtonNext, indexButtonPrevious, classMovie, numberMovie){
 	indexButtonNext.addEventListener("click", function(){
@@ -148,6 +148,7 @@ function carrouselMovie(indexButtonNext, indexButtonPrevious, classMovie, number
 	})
 	indexButtonPrevious.addEventListener("click", function(){
 		console.log(classMovie)
+		console.log(posFirst, posLast)
 		if (classMovie[posFirst].classList.contains("active") && posFirst != 0){
 			posFirst--
 			posLast--
