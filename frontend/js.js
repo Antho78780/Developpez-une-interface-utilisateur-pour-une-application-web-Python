@@ -55,15 +55,10 @@ for (let numPage =1; numPage < 3;numPage++){
 						ArrayMoviesAdventure.push(movie)
 					}
 				}
-				for (let movie of ArrayMoviesActions){
-					moviesActions.innerHTML += `<img src="${movie.image_url}" class="img_sliderAction active">`
-				}
-				for (let movie of ArrayMoviesDramas){
-					moviesDramas.innerHTML += `<img src="${movie.image_url}" class="img_sliderDrama active">`
-				}
-				for (let movie of ArrayMoviesAdventure){
-					moviesAdventures.innerHTML += `<img src="${movie.image_url}" class="img_sliderAdventure active">`
-				}
+				checkedGenre(ArrayMoviesActions, moviesActions, "img_sliderAction")
+				checkedGenre(ArrayMoviesDramas, moviesDramas, "img_sliderDrama")
+				checkedGenre(ArrayMoviesAdventure, moviesAdventures, "img_sliderAdventure")
+	
 				const img_sliderBest = document.getElementsByClassName("img_sliderBest")
 				const img_sliderActions = document.getElementsByClassName("img_sliderAction")
 				const img_sliderDrama = document.getElementsByClassName("img_sliderDrama")
@@ -109,21 +104,16 @@ for (let numPage =1; numPage < 3;numPage++){
 		})
 	}
 }
-function checkedGenre(genre, classMovie, imageMovie){
-	if(genre){
-			classMovie.innerHTML += `<img src='${imageMovie}'></img>`
-		}
+function checkedGenre(arrayMovie, classMovie, name){
+	for (let movie of arrayMovie){
+		classMovie.innerHTML += `<img src='${movie.image_url}' class="${name} active">`
+	}
 }
-function importMovie(classMovie, movieIndexImage){
-	classMovie.innerHTML += `<img src='${movieIndexImage}'></img>`
-}
+
 let posFirst = 0;
 let posLast = 4;
-let test = 6
-
 function carrouselMovie(indexButtonNext, indexButtonPrevious, classMovie, numberMovie){
 	indexButtonNext.addEventListener("click", function(){
-		console.log(classMovie)
 		if (posLast == numberMovie - 1){
 			for (let i = 3; i < numberMovie; i++){
 				classMovie[i].classList.remove("active")
@@ -147,8 +137,6 @@ function carrouselMovie(indexButtonNext, indexButtonPrevious, classMovie, number
 		classMovie[posLast].classList.add("active")
 	})
 	indexButtonPrevious.addEventListener("click", function(){
-		console.log(classMovie)
-		console.log(posFirst, posLast)
 		if (classMovie[posFirst].classList.contains("active") && posFirst != 0){
 			posFirst--
 			posLast--
