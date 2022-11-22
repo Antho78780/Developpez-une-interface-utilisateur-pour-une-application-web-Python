@@ -15,6 +15,7 @@ for (let numPage =1; numPage < 3;numPage++){
 		.then(res => res.json())
 		.then(data => {
 			for (let movie of data.results){
+				console.log(movie)
 				convertScore = parseFloat(movie.imdb_score)
 				movie.imdb_score = convertScore
 				allMovies.push(movie)
